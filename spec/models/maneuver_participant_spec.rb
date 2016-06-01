@@ -66,4 +66,31 @@ describe ManeuverParticipant do
       end
     end
   end
+  describe 'scoreboard grouping' do
+    it 'groups maneuver_participants' do
+      record_1 = create :maneuver_participant
+      record_2 = create :maneuver_participant
+      expected = { record_1.participant_id =>
+                    { record_1.maneuver_id => [record_1] },
+                   record_2.participant_id =>
+                    { record_2.maneuver_id => [record_2] } }
+      expect(ManeuverParticipant.scoreboard_grouping).to eq expected
+    end
+  end
+  describe 'creator' do 
+    context 'without a creator' do 
+      it 'returns nil' do 
+        maneuver_participant = create :maneuver_participant
+        expect(maneuver_participant.creator).to eql nil
+      end
+    end
+    context 'with a creator' do 
+      it 'returns a valid creator' do 
+        my_user = User.create name:"Arta", email: "arazavi@yahoo.com"
+        maneuver_participant = create :maneuver_participant
+        maneuver_participant.versions.first.update whodunnit: my_user.id.to_s
+        expect(maneuver_participant.creator).to eql my_user
+      end
+    end
+  end
 end

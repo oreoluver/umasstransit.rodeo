@@ -73,4 +73,20 @@ describe OnboardJudging do
       expect(onboard.score).to be 50
     end
   end
+  describe 'creator' do 
+    context 'with a creator' do 
+      it 'returns a valid creator' do
+        my_user = User.create name:"Arta", email: "arazavi@yahoo.com"
+        onboard_judging = create :onboard_judging
+        onboard_judging.versions.first.update whodunnit: my_user.id.to_s
+        expect(onboard_judging.creator).to eql my_user
+      end
+    end
+    context 'without a creator' do 
+      it 'returns nil' do
+        onboard_judging = create :onboard_judging
+        expect(onboard_judging.creator).to eql nil
+      end
+    end
+  end
 end
