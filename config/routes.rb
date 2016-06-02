@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   as :user do
     get 'users/edit', to: 'devise/registrations#edit', as: :edit_user_registration
-    put 'users', to: 'devise/registrations#update', as: :user_registration           
+    put 'users', to: 'devise/registrations#update', as: :user_registration     
+    get 'users/create', to: 'devise/registrations#new', as: :create_user_registration      
   end
 
   root 'participants#welcome'
