@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users
+  get 'sign_up/create'
+
+  devise_for :users, controller: { sessions: 'sign_up' }
   as :user do
     get 'users/edit', to: 'devise/registrations#edit', as: :edit_user_registration
-    put 'users', to: 'devise/registrations#update', as: :user_registration 
-    #get 'users/signup', to: 'devise/registrations#create', as: :create_user_registration 
+    put 'users', to: 'devise/registrations#update', as: :user_registration     
+    get 'users/create', to: 'devise/sessions#create_user', as: :create_user_session 
+    post 'users/create', to: 'sign_up#create_user', as: :create_user_post
   end
 
   root 'participants#welcome'

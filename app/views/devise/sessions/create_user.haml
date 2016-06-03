@@ -1,0 +1,45 @@
+%h2 Sign up
+= form_for User.new, url: create_user_session_path do |f|
+  .field
+    = f.label :name
+    %br/
+    = f.text_field :name, autofocus: true
+  .field
+    = f.label :email
+    %br/
+    = f.email_field :email, autofocus: true
+  .field
+    = f.label :password
+    - if @minimum_password_length
+      %em
+        (#{@minimum_password_length} characters minimum)
+    %br/
+    = f.password_field :password, autocomplete: "off"
+  .field
+    = f.label :password_confirmation
+    %br/
+    = f.password_field :password_confirmation, autocomplete: "off"
+  .field
+    = f.label :admin
+    %br/
+    = f.select :admin, [['Admin', true], ['Not Admin', false]]
+  .field
+    = f.label :judge
+    %br/
+    = f.select :judge, [['Judge', true], ['Not Judge', false]]
+  .field
+    = f.label :circle_check_scorer
+    %br/
+    = f.select :circle_check_scorer, [['Circle Check Scorer', true], ['Not Circle Check Scorer', false]]
+  .field
+    = f.label :master_of_ceremonies
+    %br/
+    = f.select :master_of_ceremonies, [['Master of Ceremonies', true], ['Not Master of Ceremonies', false]]
+  .field
+    = f.label :quiz_scorer
+    %br/
+    = f.select :quiz_scorer, [['Quiz Scorer', true], ['Not Quiz Scorer', false]]
+
+  .actions
+    = f.submit "Sign up"
+= render "devise/shared/links"
