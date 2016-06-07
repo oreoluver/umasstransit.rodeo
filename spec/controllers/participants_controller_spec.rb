@@ -1,13 +1,12 @@
-require 'rails_helper' 
+require 'rails_helper'
 
-describe ParticipantsController do 
+describe ParticipantsController do
   include Devise::TestHelpers
   describe 'creating scoreboard' do
     context 'partial' do
-      it 'tests something' do 
+      it 'tests something' do
         @request.env['devise.mapping'] = Devise.mappings[:user]
-        partip_1 = create :participant
-        partip_2 = create :participant
+        create :participant
         when_current_user_is :admin
         user = create :user
         get :scoreboard_partial, id: user, sort_order: 'total_score'
